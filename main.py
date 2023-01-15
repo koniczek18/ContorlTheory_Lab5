@@ -2,14 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 
-L=0.1
+l=0.1
 Vin=8
 R=5
 c=0.01
 Vd=5
 
-A=np.array([[0,1],[-1/(c*L),-1/(c*R)]])
-B=np.array([[0],[Vin/(c*L)]])
+A=np.array([[0,1],[-1/(c*l),-1/(c*R)]])
+B=np.array([[0],[Vin/(c*l)]])
 C=np.array([1,0])
 D=0
 
@@ -79,7 +79,7 @@ def modelFeedbackLuenberger(x_in, t, vd, omega):
     u = u_FB + u_D
     laambda = -omega
     l_1 = -2 * laambda - 20
-    l_2 = laambda ** 2 - 1000 - 20 * l_1
+    l_2 = (laambda**2 - (l_1/(c*R)))*c*l
     L = np.array([[l_1], [l_2]])
     temp = C @ x - C @ x2
     dx = A @ x + B * u
